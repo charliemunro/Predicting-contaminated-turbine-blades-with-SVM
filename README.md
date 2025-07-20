@@ -1,51 +1,117 @@
-# Average Relative Abundance Analysis
+# Predicting Contaminated Turbine Blades with SVM
 
-This repository contains tools to compute and visualize the average relative abundance of samples based on microbial/taxa data in CSV format.
+A machine learning pipeline using Support Vector Machines (SVM) to predict contamination in turbine blades from sensor data.
 
-## Files
+---
 
-- **analysis.py**  
-  - Loads a CSV file (`input_csv`) with the first column as sample identifiers and remaining columns as taxa abundances.
-  - Computes the mean abundance across taxa for each sample.
-  - Prints the average abundances to the console.
-  - Generates and saves a bar plot of the results (default: `average_abundance.png`).
+## 📁 Project Structure
 
-## Installation
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/abundance-analysis.git
-   cd abundance-analysis
-   ```
-
-2. (Recommended) Create a virtual environment and activate it:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install pandas matplotlib
-   ```
-
-## Usage
-
-```bash
-python analysis.py path/to/data.csv --output-plot myplot.png
+```
+predicting-contaminated-turbine-blades-with-svm/
+├── data/
+│   ├── raw/                   # Original datasets (CSV files)
+│   ├── processed/             # Cleaned and feature-engineered data
+│   └── sample.csv             # Sample rows for quick testing
+├── notebooks/
+│   └── analysis.ipynb         # Jupyter notebook with exploratory analysis
+├── src/
+│   ├── __init__.py
+│   ├── data_pipeline.py       # Data loading & preprocessing
+│   ├── model.py               # SVM training and evaluation
+│   └── utils.py               # Helper functions (feature selection, plotting)
+├── tests/
+│   ├── test_data_pipeline.py  # Tests for data transformations
+│   └── test_model.py          # Tests for model predictions
+├── .github/
+│   └── workflows/ci.yml       # CI workflow for linting & tests
+├── requirements.txt           # Python dependencies
+├── setup.py                   # Package install script
+├── README.md                  # This file
+└── LICENSE                    # Open-source license
 ```
 
-- `path/to/data.csv` should be a CSV where:
-  - Column 1: Sample names/IDs
-  - Columns 2..N: Numeric abundances for each taxon
-- `--output-plot` (optional): Filename to save the bar plot (default: `average_abundance.png`).
+---
 
-## Example
+## 📖 Overview
+
+This project implements a classification pipeline to detect contaminated turbine blades based on sensor measurements. It includes:
+
+- **Data preprocessing**: cleaning, feature engineering, and scaling  
+- **Modeling**: training an SVM classifier with hyperparameter tuning  
+- **Evaluation**: performance metrics, confusion matrix, ROC curves  
+- **Notebooks**: exploratory data analysis and results visualization  
+
+---
+
+## 🚀 Installation
 
 ```bash
-python analysis.py data/samples.csv -o results/avg_abundance.png
+# Clone the repository
+git clone https://github.com/charliemunro/predicting-contaminated-turbine-blades-with-svm.git
+cd predicting-contaminated-turbine-blades-with-svm
+
+# Optional: set up a virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+# Or install as a package
+pip install .
 ```
 
-## License
+---
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+## 🎯 Usage
+
+### As a Package
+
+```python
+from src.model import train_and_evaluate
+from src.data_pipeline import load_data
+
+# Load processed dataset
+X_train, X_test, y_train, y_test = load_data("data/processed/dataset.csv")
+
+# Train and evaluate SVM
+results = train_and_evaluate(X_train, X_test, y_train, y_test)
+print(results.classification_report)
+```
+
+### Jupyter Notebook
+
+```bash
+jupyter notebook notebooks/analysis.ipynb
+```
+
+Explore data distributions, train models interactively, and visualize results.
+
+---
+
+## 🔧 Testing & CI
+
+- **pytest** is used for unit tests in `tests/`.
+- **GitHub Actions** CI is configured to run lint checks and tests on every push.
+
+```bash
+# Run all tests locally
+pytest
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on reporting issues and submitting pull requests.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🔖 Topics
+
+`python` · `machine-learning` · `svm` · `data-processing` · `jupyter-notebook`
